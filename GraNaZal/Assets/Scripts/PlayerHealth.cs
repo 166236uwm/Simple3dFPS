@@ -24,6 +24,10 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamege();
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            RestoreHealth();
+        }
     }
     public void UpdateHealthUi()
     {
@@ -34,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
                 healthBar1_3.gameObject.SetActive(false);
                 healthBar2_3.gameObject.SetActive(false);
                 healthBarFull.gameObject.SetActive(false);
+                Die();
                 break;
             case 1:
                 healthBarEmpty.gameObject.SetActive(false);
@@ -59,5 +64,13 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamege()
     {
         health -= 1;
+    }
+    public void RestoreHealth()
+    {
+        health += 1;
+    }
+    public void Die()
+    {
+        Debug.Log("Dead");
     }
 }
