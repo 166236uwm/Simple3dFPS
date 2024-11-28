@@ -6,6 +6,12 @@ public class EnemyShoot : MonoBehaviour
     public Transform shootPoint; // where stuff is shot from
     public LayerMask layerMask;
 
+    public GameObject vegetablePrefab;
+    public float shootForce = 30f;
+    public float shootDelay = 0.5f;
+
+    private float lastShootTime;
+
     private EnemyReferences enemyReferences;
     private void Awake()
     {
@@ -13,10 +19,26 @@ public class EnemyShoot : MonoBehaviour
     }
     public void Shoot()
     {
-        Vector3 spread = new Vector3(0.06f, 0.06f, 0.06f);
-        Vector3 direction = GetDirection(spread);
-        //TODO: spawn damage dealer object with certain velocity in *direction*
-        Debug.Log("Shot!");
+        if (Time.time >= lastShootTime + shootDelay)
+        {
+            GameObject vegetable = Instantiate(vegetablePrefab, shootPoint.position, shootPoint.rotation);
+
+            Rigidbody rb = vegetable.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.useGravity = true;
+                Vector3 spread = new Vector3(0.06f, 0.06f, 0.06f);
+                Vector3 direction = GetDirection(spread);
+                rb.AddForce(direction * shootForce, ForceMode.VelocityChange);
+            }
+            Projectile projectile = vegetable.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                projectile.InitializeProjectile();
+            }
+            lastShootTime = Time.time;
+        }
     }
     void Start()
     {

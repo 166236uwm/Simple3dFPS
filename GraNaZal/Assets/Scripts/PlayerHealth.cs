@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthUi();
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TakeDamege();
+            TakeDamage();
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
             default: break;
         }
     }
-    public void TakeDamege()
+    public void TakeDamage()
     {
         health -= 1;
     }

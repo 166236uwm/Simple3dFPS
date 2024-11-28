@@ -24,6 +24,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (inRange)
             {
                 LookAtTarget();
+                GetComponent<EnemyShoot>().Shoot();
             }
             else
             {
@@ -41,7 +42,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if(Time.time >= pathUpdateDeadLine)
         {
-            Debug.Log("updating path..");
             pathUpdateDeadLine = Time.time + enemyReferences.pathUpdateDelay;
             enemyReferences.navMeshAgent.SetDestination(target.position);
         }
