@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviour
 {
     [Header("General")]
     public Transform shootPoint; // where stuff is shot from
@@ -11,12 +13,6 @@ public class EnemyShoot : MonoBehaviour
     public float shootDelay = 0.5f;
 
     private float lastShootTime;
-
-    private EnemyReferences enemyReferences;
-    private void Awake()
-    {
-            enemyReferences = GetComponent<EnemyReferences>();
-    }
     public void Shoot()
     {
         if (Time.time >= lastShootTime + shootDelay)
@@ -28,7 +24,7 @@ public class EnemyShoot : MonoBehaviour
             if (rb != null)
             {
                 rb.useGravity = true;
-                float s = 0.06f;
+                float s = 0.02f;
                 Vector3 spread = new Vector3(s, s, s);
                 Vector3 direction = GetDirection(spread);
                 rb.AddForce(direction * shootForce, ForceMode.VelocityChange);
@@ -43,12 +39,12 @@ public class EnemyShoot : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
+
     }
     private Vector3 GetDirection(Vector3 spread)
     {

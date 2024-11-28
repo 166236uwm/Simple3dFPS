@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LowLevel;
 
 public class InputManager : MonoBehaviour
 {
@@ -10,9 +9,10 @@ public class InputManager : MonoBehaviour
     private PlayerInput.OnFootActions onFoot;
 
     private PlayerMotor motor;
-
     private PlayerLook look;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private PlayerShoot shooter;
+
     void Awake()
     {
         playerInput = new PlayerInput();
@@ -20,23 +20,27 @@ public class InputManager : MonoBehaviour
 
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
+        shooter = GetComponent<PlayerShoot>();
 
         onFoot.Jump.performed += ctx => motor.Jump();
+        onFoot.Shoot.performed += ctx => shooter.Shoot();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
     }
+
     private void LateUpdate()
     {
         look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
     }
+
     private void OnEnable()
     {
         onFoot.Enable();
     }
+
     private void OnDisable()
     {
         onFoot.Disable();

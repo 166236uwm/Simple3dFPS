@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     private int health;
     private int maxHealth = 3;
@@ -9,10 +9,13 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar2_3;
     public Image healthBar1_3;
     public Image healthBarEmpty;
+    public float gracePeriod = 1.2f;
+    private float damageTaken;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         health = maxHealth;
+        damageTaken = Time.time;
     }
 
     // Update is called once per frame
@@ -63,7 +66,11 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage()
     {
-        health -= 1;
+        if (damageTaken + gracePeriod <= Time.time) 
+        { 
+            health -= 1;
+            damageTaken = Time.time;
+        }
     }
     public void RestoreHealth()
     {

@@ -48,19 +48,14 @@ public class Projectile : MonoBehaviour
 
     private void HandleHit(Collider collider)
     {
-
-        if (collider.CompareTag("Player"))
+        IDamageable damageable = collider.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            PlayerHealth playerHealth = collider.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage();
-                Destroy(gameObject);
-            }
+            damageable.TakeDamage();
+            Destroy(gameObject);
+            return;
         }
 
         Destroy(gameObject);
     }
 }
-
-//TODO: debug why player takes two damage points
