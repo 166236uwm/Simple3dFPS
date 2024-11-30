@@ -6,6 +6,7 @@ public class PlayerShoot : MonoBehaviour
 {
     [Header("General")]
     public Transform shootPoint; // where stuff is shot from
+    public Transform cameraTransform;
     public LayerMask layerMask;
 
     public GameObject vegetablePrefab;
@@ -27,6 +28,7 @@ public class PlayerShoot : MonoBehaviour
                 float s = 0.02f;
                 Vector3 spread = new Vector3(s, s, s);
                 Vector3 direction = GetDirection(spread);
+                Debug.DrawRay(shootPoint.position, direction * 10f, Color.red, 2f);
                 rb.AddForce(direction * shootForce, ForceMode.VelocityChange);
             }
             Projectile projectile = vegetable.GetComponent<Projectile>();
@@ -48,7 +50,7 @@ public class PlayerShoot : MonoBehaviour
     }
     private Vector3 GetDirection(Vector3 spread)
     {
-        Vector3 direction = transform.forward;
+        Vector3 direction = cameraTransform.forward;
         direction += new Vector3(
                 Random.Range(-spread.x, spread.x),
                 Random.Range(-spread.y, spread.y),
