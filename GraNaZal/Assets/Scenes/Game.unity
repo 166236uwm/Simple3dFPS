@@ -3795,14 +3795,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944930102}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5110984, y: 0.48864883, z: 0.48864955, w: 0.5110993}
-  m_LocalPosition: {x: 0.49, y: -0.032, z: 0.543}
-  m_LocalScale: {x: 0.21182398, y: 1.0500987, z: 0.24892586}
+  m_LocalRotation: {x: 0.69546705, y: -0.12776892, z: 0.70050234, w: -0.09642209}
+  m_LocalPosition: {x: 0.48999977, y: -0.632, z: 0.543}
+  m_LocalScale: {x: 0.21182397, y: 1.0500987, z: 0.24892588}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 721962304}
-  m_Father: {fileID: 1395468672}
-  m_LocalEulerAnglesHint: {x: 2.573, y: 90, z: 90}
+  m_Father: {fileID: 1480092614}
+  m_LocalEulerAnglesHint: {x: 2.573, y: 90, z: 198.247}
 --- !u!136 &944930104
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4946,6 +4946,11 @@ MonoBehaviour:
   vegetablePrefab: {fileID: 692511408}
   shootForce: 30
   shootDelay: 0.5
+--- !u!4 &1480092614 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3393909991832187621, guid: 82e553279f92b6b458800d19cc5084ff, type: 3}
+  m_PrefabInstance: {fileID: 2310742547601510809}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1499661199
 GameObject:
   m_ObjectHideFlags: 0
@@ -52328,7 +52333,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6260658952601755897, guid: 82e553279f92b6b458800d19cc5084ff, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3393909991832187621, guid: 82e553279f92b6b458800d19cc5084ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 944930103}
     m_AddedComponents:
