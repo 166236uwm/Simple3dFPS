@@ -52,10 +52,10 @@ public class Projectile : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage();
-            Destroy(gameObject);
+            Destroy(gameObject, 3f);
             return;
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
     }
 }

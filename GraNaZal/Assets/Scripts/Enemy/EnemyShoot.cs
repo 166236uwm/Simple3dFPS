@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyShoot : MonoBehaviour
 {
@@ -7,8 +8,6 @@ public class EnemyShoot : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject vegetablePrefab;
-    public float shootForce = 30f;
-    public float shootDelay = 0.5f;
 
     private float lastShootTime;
 
@@ -19,24 +18,27 @@ public class EnemyShoot : MonoBehaviour
     }
     public void Shoot()
     {
-        if (Time.time >= lastShootTime + shootDelay)
+        if (Time.time >= lastShootTime + enemyReferences.shootDelay)
         {
-            GameObject vegetable = Instantiate(vegetablePrefab, shootPoint.position, shootPoint.rotation);
 
-            Rigidbody rb = vegetable.GetComponent<Rigidbody>();
+            int x = 1;
+            if(gameObject.tag == "EnemyHeavy") { x = 10; Debug.Log("here"); }
+            for (int i = 0; i < x; i++)
+            {
+                GameObject vegetable = Instantiate(vegetablePrefab, shootPoint.position, shootPoint.rotation);
+                Rigidbody rb = vegetable.GetComponent<Rigidbody>();
 
-            if (rb != null)
-            {
-                rb.useGravity = true;
-                float s = 0.06f;
-                Vector3 spread = new Vector3(s, s, s);
-                Vector3 direction = GetDirection(spread);
-                rb.AddForce(direction * shootForce, ForceMode.VelocityChange);
-            }
-            Projectile projectile = vegetable.GetComponent<Projectile>();
-            if (projectile != null)
-            {
-                projectile.InitializeProjectile();
+                if (rb != null)
+                {
+                    rb.useGravity = true;
+                    Vector3 direction = GetDirection(enemyReferences.spread);
+                    rb.AddForce(direction * enemyReferences.shootForce, ForceMode.VelocityChange);
+                }
+                Projectile projectile = vegetable.GetComponent<Projectile>();
+                if (projectile != null)
+                {
+                    projectile.InitializeProjectile();
+                }
             }
             lastShootTime = Time.time;
         }
@@ -53,12 +55,11 @@ public class EnemyShoot : MonoBehaviour
     private Vector3 GetDirection(Vector3 spread)
     {
         Vector3 direction = transform.forward;
+        direction = (enemyReferences.target.position - shootPoint.position).normalized;
         direction += new Vector3(
-                Random.Range(-spread.x, spread.x),
-                Random.Range(-spread.y, spread.y),
-                Random.Range(-spread.z, spread.z)
-            );
-        direction.Normalize();
+            Random.Range(-spread.x, spread.x),
+            Random.Range(-spread.y, spread.y),
+            Random.Range(-spread.z, spread.z));
         return direction;
     }
 }

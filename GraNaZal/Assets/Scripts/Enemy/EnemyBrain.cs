@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public Transform target;
     private EnemyReferences enemyReferences;
     private float shootingDistance;
     private float pathUpdateDeadLine;
@@ -18,9 +17,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     void Update()
     {
-        if (target != null)
+        if (enemyReferences.target != null)
         {
-            bool inRange = Vector3.Distance(transform.position, target.position) <= shootingDistance;
+            bool inRange = Vector3.Distance(transform.position, enemyReferences.target.position) <= shootingDistance;
             if (inRange)
             {
                 LookAtTarget();
@@ -34,7 +33,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
     private void LookAtTarget()
     {
-        Vector3 lookPos = target.position - transform.position;
+        Vector3 lookPos = enemyReferences.target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.2f);
     }
@@ -43,7 +42,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         if(Time.time >= pathUpdateDeadLine)
         {
             pathUpdateDeadLine = Time.time + enemyReferences.pathUpdateDelay;
-            enemyReferences.navMeshAgent.SetDestination(target.position);
+            enemyReferences.navMeshAgent.SetDestination(enemyReferences.target.position);
         }
     }
 }

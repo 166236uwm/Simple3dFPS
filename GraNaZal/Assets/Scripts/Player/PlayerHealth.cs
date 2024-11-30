@@ -11,9 +11,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public Image healthBarEmpty;
     public float gracePeriod = 1.2f;
     private float damageTaken;
+    private GameManager gm;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gm = GetComponent<GameManager>();
         health = maxHealth;
         damageTaken = Time.time;
     }
@@ -78,6 +80,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     public void Die()
     {
-        Debug.Log("Dead");
+        gm.GameOver();
     }
+
 }
