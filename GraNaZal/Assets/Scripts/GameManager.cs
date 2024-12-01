@@ -75,9 +75,10 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         gameOverUI.SetActive(true);
-        finalScoreText.text = "Wynik: " + score;
+        finalScoreText.text = "Wynik: " + score + "\n Najlepszy wynik dot¹d: " + PlayerPrefs.GetInt("HighScore", 0);
         Time.timeScale = 0f;
         UnlockCursor() ;
+        checkHighScore();
     }
     public void LockCursor()
     {
@@ -92,5 +93,12 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;  
         Cursor.visible = true;                   
+    }
+    private void checkHighScore()
+    {
+        if( score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
 }
