@@ -20,7 +20,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         if (enemyReferences.target != null)
         {
             bool inRange = Vector3.Distance(transform.position, enemyReferences.target.position) <= shootingDistance;
-            if (inRange)
+            if (inRange && HasLineOfSight())
             {
                 LookAtTarget();
                 GetComponent<EnemyShoot>().Shoot();
@@ -44,5 +44,20 @@ public class NewMonoBehaviourScript : MonoBehaviour
             pathUpdateDeadLine = Time.time + enemyReferences.pathUpdateDelay;
             enemyReferences.navMeshAgent.SetDestination(enemyReferences.target.position);
         }
+    }
+    private bool HasLineOfSight()
+    {
+        Vector3 directionToTarget = (enemyReferences.target.position - transform.position).normalized;
+        float distanceToTarget = Vector3.Distance(transform.position, enemyReferences.target.position);
+
+        if (Physics.Raycast(transform.position, directionToTarget, out RaycastHit hit, distanceToTarget, enemyReferences.layerMask))
+        {
+            if (hit.transform == enemyReferences.target)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

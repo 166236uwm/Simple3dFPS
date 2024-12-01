@@ -18,7 +18,12 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     private PlayerHealth ph;
 
-    private bool isGameOver = false;
+    public bool isGameOver = false;
+
+    void Start()
+    {
+        LockCursor();
+    }
     public void AddScore(int points)
     {
         score += points;
@@ -29,7 +34,6 @@ public class GameManager : MonoBehaviour
 
     public void DecrementEnemyCount()
     {
-        Debug.Log("Current Enemy Count: " + currentEnemyCount);
         currentEnemyCount--;
         if (score % 10 == 0)
         {
@@ -42,6 +46,15 @@ public class GameManager : MonoBehaviour
         if (currentEnemyCount < maxEnemies)
         {
             SpawnEnemy();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnlockCursor();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            LockCursor();
         }
     }
 
@@ -60,8 +73,24 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        isGameOver = true;
         gameOverUI.SetActive(true);
         finalScoreText.text = "Wynik: " + score;
-        player.SetActive(false);
+        Time.timeScale = 0f;
+        UnlockCursor() ;
+    }
+    public void LockCursor()
+    {
+        if (!isGameOver)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;  
+        Cursor.visible = true;                   
     }
 }

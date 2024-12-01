@@ -12,12 +12,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Hittable
+  - Player
   - Water
   - UI
   - Projectile
-  - 
-  - 
+  - Enemy
+  - Obstacle
   - 
   - 
   - 

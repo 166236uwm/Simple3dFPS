@@ -12,10 +12,16 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float gracePeriod = 1.2f;
     private float damageTaken;
     private GameManager gm;
+    private bool isDead = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gm = GetComponent<GameManager>();
+        gm = FindObjectOfType<GameManager>();
+        if (gm == null)
+        {
+            Debug.LogError("GameManager nie zosta³ znaleziony w scenie!");
+        }
+
         health = maxHealth;
         damageTaken = Time.time;
     }
@@ -25,14 +31,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUi();
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TakeDamage();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            RestoreHealth();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    TakeDamage();
+        //}
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    RestoreHealth();
+        //}
     }
     public void UpdateHealthUi()
     {
@@ -80,7 +86,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     public void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
         gm.GameOver();
     }
+
 
 }
